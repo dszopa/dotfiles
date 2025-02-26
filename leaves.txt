@@ -13,6 +13,7 @@ jq
 make
 neovim
 ripgrep
+stow
 stylua
 tmux
 wget
