@@ -49,6 +49,17 @@ xargs brew install < leaves.txt
 Rather than including everything in my leaves.txt, I prefer to explicitly
 add / remove packages as needed.
 
+## Tmux
+
+Install tpm
+
+```bash
+git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+```
+
+then start a new tmux session and run prefix + I (prefix will be bound to ctrl + b)
+
+
 ## Inspired by
 
 - https://github.com/charliestrawn/.dotfiles
