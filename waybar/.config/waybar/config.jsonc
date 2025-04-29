@@ -1,0 +1,61 @@
+{
+	"position": "top",
+	"layer": "top",
+	"height": 16,
+	"margin-top": 0,
+	"margin-bottom": 0,
+	"margin-left": 0,
+	"margin-right": 0,
+	"modules-left": ["niri/workspaces"],
+	"modules-center": ["niri/window"],
+	"modules-right": [
+		//"tray",
+		//"cpu",
+		//"memory",
+		"pulseaudio",
+		"clock"
+	],
+	"clock": {
+		// "Hour:Minute AM/PM"
+		"format": "{:%I:%M %p}",
+		"tooltip": "true",
+		"tooltip-format": "<tt>{calendar}</tt>",
+		"calendar": {
+			"mode": "month",
+			"week-pos": "left",
+			"format": {
+				"today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+			}
+		},
+		"actions": {
+			"on-scroll-up": "shift_down",
+			"on-scroll-down": "shift_up"
+		}
+	},
+	"niri/workspaces": {},
+	"niri/window": {
+		"separate-outputs": true,
+		"icon": true,
+		"icon-size": 20
+	},
+	"pulseaudio": {
+		"format": "{icon}   {volume}%",
+		"format-icons": {
+			"alsa_output.pci-0000_00_1f.3.analog-stereo": "",
+			"alsa_output.pci-0000_00_1f.3.analog-stereo-muted": "",
+			"headphone": "",
+			"hands-free": "",
+			"headset": "",
+			"phone": "",
+			"phone-muted": "",
+			"portable": "",
+			"car": "",
+			"default": ["", ""]
+		},
+		"on-click": "pulsemixer --toggle-mute",
+		"on-click-right": "pavucontrol",
+		"on-click-middle": "sh ~/.config/waybar/next-sink.sh"
+		// Default scroll up / down behavior is to raise / lower volume
+	}
+    }
+}
