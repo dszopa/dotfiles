@@ -3,17 +3,15 @@ gui:
   commitLength:
     show: true
   sidePanelWidth: 0.3333
-
 git:
-  paging:
-    colorArg: always
-    pager: delta --dark --paging=never
-
+  pagers:
+    - colorArg: always
+      pager: delta --dark --paging=never
 customCommands:
   - key: "W"
     context: "global"
     command: "git commit --no-verify"
-    subprocess: true
+    output: terminal
   - key: "B"
     command: 'gh browse "{{.SelectedPath}}"'
     context: "files"
