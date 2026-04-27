@@ -1,0 +1,61 @@
+{
+  "version": 3,
+  "skills": {
+    "pdd": {
+      "source": "strands-agents/agent-sop",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/strands-agents/agent-sop.git",
+      "ref": "skills-dist",
+      "skillPath": "skills/pdd/SKILL.md",
+      "skillFolderHash": "08309b56c121b8624687bc9f1b0d251182015de1",
+      "installedAt": "2026-04-27T04:45:48.036Z",
+      "updatedAt": "2026-04-27T04:45:48.036Z"
+    },
+    "codebase-summary": {
+      "source": "strands-agents/agent-sop",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/strands-agents/agent-sop.git",
+      "ref": "skills-dist",
+      "skillPath": "skills/codebase-summary/SKILL.md",
+      "skillFolderHash": "70bd522325e7b7f056952b883be4fcdbe98131aa",
+      "installedAt": "2026-04-27T04:45:48.253Z",
+      "updatedAt": "2026-04-27T04:45:48.253Z"
+    },
+    "code-assist": {
+      "source": "strands-agents/agent-sop",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/strands-agents/agent-sop.git",
+      "ref": "skills-dist",
+      "skillPath": "skills/code-assist/SKILL.md",
+      "skillFolderHash": "71471525f2e616313e47d2d2ea9fc179f0c289b9",
+      "installedAt": "2026-04-27T04:45:48.474Z",
+      "updatedAt": "2026-04-27T04:45:48.474Z"
+    },
+    "grill-me": {
+      "source": "mattpocock/skills",
+      "sourceType": "github",
+      "sourceUrl": "https://github.com/mattpocock/skills.git",
+      "skillPath": "grill-me/SKILL.md",
+      "skillFolderHash": "2a1ad17028306ebe45f0e49703fa28b9b2e7f499",
+      "installedAt": "2026-04-27T04:46:24.399Z",
+      "updatedAt": "2026-04-27T04:46:24.399Z"
+    }
+  },
+  "dismissed": {
+    "findSkillsPrompt": true
+  },
+  "lastSelectedAgents": [
+    "amp",
+    "antigravity",
+    "cline",
+    "codex",
+    "cursor",
+    "deepagents",
+    "firebender",
+    "gemini-cli",
+    "github-copilot",
+    "kimi-cli",
+    "opencode",
+    "warp"
+  ]
+}
