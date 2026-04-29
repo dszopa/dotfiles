@@ -8,5 +8,5 @@ require("bufferline").setup({
     numbers = "ordinal",
     diagnostics = "nvim_lsp",
     always_show_bufferline = false,
-  }
+  },
 })

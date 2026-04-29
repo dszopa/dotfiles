@@ -16,9 +16,9 @@ require("neo-tree").setup({
     filtered_items = {
       hide_dotfiles = false,
       hide_gitignored = false,
-      hide_hidden = false
-    }
-  }
+      hide_hidden = false,
+    },
+  },
 })
 
 vim.keymap.set("n", "<leader>tt", "<cmd>Neotree toggle<CR>", { desc = "Toggle Neo-Tree" })
