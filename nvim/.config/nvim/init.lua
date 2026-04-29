@@ -7,3 +7,4 @@ _G.Repo = {
 require("opts")
 require("settings")
 require("lsp")
+require("keybinds")
