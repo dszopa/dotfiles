@@ -32,3 +32,9 @@ vim.keymap.set("n", "<leader>Yp", function()
   vim.fn.setreg("+", file_path)
   vim.notify("Copied file path to clipboard: " .. file_path, vim.log.levels.INFO)
 end, { desc = "Copy relative file path to clipboard" })
+
+-- Quickfix list enhancements
+vim.keymap.set("n", "]q", ":cnext<CR>zz", { desc = "Go to next quickfix item" })
+vim.keymap.set("n", "[q", ":cprev<CR>zz", { desc = "Go to previous quickfix item" })
+vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open quickfix list" })
+vim.keymap.set("n", "<leader>qx", ":cclose<CR>", { desc = "Close quickfix list" })
