@@ -1,62 +1,83 @@
 vim.pack.add({
-  { src = Repo.gh("nvim-treesitter/nvim-treesitter"), version = "master" },
+  { src = Repo.gh("nvim-treesitter/nvim-treesitter"), version = "main" },
 })
 
-require("nvim-treesitter.configs").setup({
-  -- A list of parser names, or "all" (the listed parsers MUST always be installed)
-  ensure_installed = {
-    "bash",
-    "css",
-    "csv",
-    "dart",
-    "go",
-    "html",
-    "java",
-    "javascript",
-    "json",
-    "kdl",
-    "lua",
-    "make",
-    "markdown",
-    "mermaid",
-    "nginx",
-    "nix",
-    "proto",
-    "python",
-    "regex",
-    "thrift",
-    "tmux",
-    "toml",
-    "tsx",
-    "typescript",
-    "vim",
-    "vimdoc",
-    "xml",
-    "yaml",
-  },
+local parsers = {
+  "bash",
+  "css",
+  "csv",
+  "dart",
+  "go",
+  "html",
+  "java",
+  "javascript",
+  "json",
+  "kdl",
+  "lua",
+  "make",
+  "markdown",
+  "mermaid",
+  "nginx",
+  "nix",
+  "proto",
+  "python",
+  "regex",
+  "thrift",
+  "tmux",
+  "toml",
+  "tsx",
+  "typescript",
+  "vim",
+  "vimdoc",
+  "xml",
+  "yaml",
+  "zsh",
+}
 
-  -- Install parsers synchronously (only applied to `ensure_installed`)
-  sync_install = false,
+require("nvim-treesitter").install(parsers)
 
-  -- Automatically install missing parsers when entering buffer
-  auto_install = true,
+local function treesitter_try_attach(buf, language)
+  -- Check if parser exists and load it.
+  if not vim.treesitter.language.add(language) then
+    return
+  end
+  -- Enable syntax highlighting and other treesitter features
+  vim.treesitter.start(buf, language)
 
-  highlight = {
-    enable = true,
+  -- Check if treesitter indentation is available for this language
+  -- and enable it if so.
+  --
+  -- If there is no indent query fallback to vim's built in one.
+  local has_indent_query = vim.treesitter.query.get(language, "indents") ~= nil
+  if has_indent_query then
+    vim.bo.indentexpr = "v:lua.require'nvim-treesitter'.indentexpr()"
+  end
+end
 
-    -- Disable slow treesitter highlight for large files
-    disable = function(_, buf)
-      local max_filesize = 100 * 1024 -- 100 KB
-      local ok, stats = pcall(vim.loop.fs_stat, vim.api.nvim_buf_get_name(buf))
-      if ok and stats and stats.size > max_filesize then
-        return true
-      end
-    end,
+local available_parsers = require("nvim-treesitter").get_available()
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function(args)
+    local buf, filetype = args.buf, args.match
 
-    -- Setting this to true will run `:h syntax` and tree-sitter at the same time.
-    -- Set this to `true` if you depend on 'syntax' being enabled (like for indentation).
-    -- Using this option may slow down your editor, and you may see some duplicate highlights.
-    -- Instead of true it can also be a list of languages
-    additional_vim_regex_highlighting = false,
-  },
+    local language = vim.treesitter.language.get_lang(filetype)
+    if not language then
+      return
+    end
+
+    local installed_parsers = require("nvim-treesitter").get_installed("parsers")
+
+    if vim.tbl_contains(installed_parsers, language) then
+      treesitter_try_attach(buf, language)
+    elseif vim.tbl_contains(available_parsers, language) then
+      -- If a parser is available in `nvim-treesitter` auto install it and
+      -- enable it after the installation is done.
+      require("nvim-treesitter").install(language):await(function()
+        treesitter_try_attach(buf, language)
+      end)
+    else
+      -- try to enable treesitter features in case the parser exists but is not
+      -- available from `nvim-treesitter`.
+      treesitter_try_attach(buf, language)
+    end
+  end,
 })
