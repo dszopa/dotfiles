@@ -3,8 +3,6 @@
 --
 -- It serves as a home for nvim settings that are not related to plugins, or standalone opts.
 
-vim.cmd.colorscheme("catppuccin")
-
 -- Show diagnostics as virtual lines instead of virtual text, but only for the current line.
 vim.diagnostic.config({
   virtual_lines = {
