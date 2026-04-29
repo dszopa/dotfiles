@@ -45,7 +45,7 @@ vim.opt.winborder = "rounded"
 
 -- Show whitespace characters.
 vim.opt.list = true
-vim.opt.listchars = { trail = "•" }
+vim.opt.listchars = { tab = "»·", trail = "•" }
 
 -- Only show the tabline when there are at least two tabs.
 vim.opt.showtabline = 1
