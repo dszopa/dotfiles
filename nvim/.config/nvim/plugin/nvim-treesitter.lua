@@ -66,6 +66,7 @@ vim.api.nvim_create_autocmd("FileType", {
 
     local installed_parsers = require("nvim-treesitter").get_installed("parsers")
 
+    -- selene: allow(if_same_then_else)
     if vim.tbl_contains(installed_parsers, language) then
       treesitter_try_attach(buf, language)
     elseif vim.tbl_contains(available_parsers, language) then

@@ -1,0 +1,14 @@
+# This file is used by `selene` through the `std="vim"` config line.
+# See this page for more details: https://kampfkarren.github.io/selene/usage/std.html
+base: lua51
+lua_versions:
+  - luajit
+
+globals:
+  Snacks:
+    any: true
+  vim:
+    any: true
+  Repo.gh:
+    args:
+      - type: string

@@ -1,5 +1,5 @@
--- Coding agent used for sidekick / nvim.
-_G.agent = "opencode"
+-- Coding agent used for sidekick.
+local agent = "opencode"
 
 vim.pack.add({
   Repo.gh("folke/sidekick.nvim"),
