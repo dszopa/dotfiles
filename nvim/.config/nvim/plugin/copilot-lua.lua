@@ -11,7 +11,7 @@ require("copilot").setup({
   },
 })
 
-vim.keymap.set({ "i" }, "<C-;>", function()
+vim.keymap.set({ "i" }, "<C-a>", function()
   if require("copilot.suggestion").is_visible() then
     require("copilot.suggestion").accept()
   else
