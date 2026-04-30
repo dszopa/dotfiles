@@ -5,6 +5,4 @@ vim.pack.add({
   },
 })
 
-require("blink.cmp").setup({
-  signature = { enable = true },
-})
+require("blink.cmp").setup()
