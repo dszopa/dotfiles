@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+repo_root="$(git rev-parse --show-toplevel)"
+target_dir="$repo_root/nvim/.config/nvim"
+
+if [[ ! -d "$target_dir" ]]; then
+  echo "pre-commit: missing directory: $target_dir" >&2
+  exit 1
+fi
+
+cd "$target_dir"
+
+echo "pre-commit: running selene ."
+selene .
+
+echo "pre-commit: running stylua --check ."
+stylua --check .
+
+echo "pre-commit: checks passed"

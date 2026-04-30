@@ -59,6 +59,15 @@ git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 
 then start a new tmux session and run prefix + I (prefix will be bound to ctrl + b)
 
+## Development
+
+```bash
+# Install dependencies
+pnpm install
+
+# Run pre-commit hooks
+pnpm pre-commit
+```
 
 ## Inspired by
 
