@@ -37,6 +37,10 @@
       "rev": "e3829d35674fa0537ed2a3aceffb6f79b412d52b",
       "src": "https://github.com/OXY2DEV/markview.nvim"
     },
+    "mini.cursorword": {
+      "rev": "a7e606208197ca5d1c5288750d5163429b4c74da",
+      "src": "https://github.com/nvim-mini/mini.cursorword"
+    },
     "neo-tree.nvim": {
       "rev": "84c75e7a7e443586f60508d12fc50f90d9aee14e",
       "src": "https://github.com/nvim-neo-tree/neo-tree.nvim",
