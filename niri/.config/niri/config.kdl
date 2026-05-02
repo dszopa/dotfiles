@@ -37,7 +37,7 @@ input {
         // off
         // natural-scroll
         // accel-speed 0.2
-        // accel-profile "flat"
+        accel-profile "flat"
         // scroll-method "no-scroll"
     }
 
@@ -96,29 +96,31 @@ input {
     position x=1280 y=0
 }
 
+// Left monitor
 output "DP-1" {
     mode "3840x2160@59.997"
     scale 1.25
     transform "normal"
     background-color "#003300"
+    position x=0 y=0
 }
 
+// Right monitor
 output "DP-2" {
-    // focus-at-startup // Not yet released
+    focus-at-startup
     mode "3840x2160@59.997"
     scale 1.25
     transform "normal"
+    // 3840*0.75=3072
+    position x=3072 y=0
 }
-
 
 // Settings that influence how windows are positioned and sized.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Layout
 layout {
     // Set gaps around windows in logical pixels.
-    // gaps 16
-    // gaps 0
-    gaps 4
+    gaps 0
 
     // When to center a column when changing focus, options are:
     // - "never", default behavior, focusing an off-screen column will keep at the left
@@ -163,7 +165,7 @@ layout {
     // You can change how the focus ring looks.
     focus-ring {
         // Uncomment this line to disable the focus ring.
-        // off
+        off
 
         // How many logical pixels the ring extends out from the windows.
         width 4
@@ -261,7 +263,55 @@ layout {
 }
 
 //
+// Define Workspaces
+//
+// * Order matters
+// * DP-2 = Right monitor
+// * DP-1 = Left monitor
+//
+
+//
+// Right
+//
+
+// 1 - Terminal
+workspace "1 - Terminal" {
+	open-on-output "DP-2"
+}
+
+// 2 - Gaming
+workspace "2 - Gaming" {
+	open-on-output "DP-2"
+}
+
+//
+// Left
+//
+
+// 1 - Browser
+workspace "1 - Browser" {
+	open-on-output "DP-1"
+}
+
+// 2 - Discord
+workspace "2 - Discord" {
+	open-on-output "DP-1"
+}
+
+// 3 - Music
+workspace "3 - Music" {
+	open-on-output "DP-1"
+}
+
+// 4 - Notes
+workspace "4 - Notes" {
+	open-on-output "DP-1"
+}
+
+//
 // ** spawn-at-startup section start ** //
+//
+// Get app ids via - `sleep 5 && niri msg focused-window`
 //
 
 // Add lines like this to spawn processes at startup.
@@ -269,6 +319,9 @@ layout {
 // which may be more convenient to use.
 // See the binds section below for more spawn examples.
 // spawn-at-startup "alacritty" "-e" "fish"
+
+// Notification Manager
+// spawn-at-startup "dunst"
 
 // Used for displaying x11 applications.
 spawn-at-startup "xwayland-satellite"
@@ -285,6 +338,67 @@ spawn-at-startup "swww" "img" "~/Pictures/Wallpapers/chicago_michigan_ave.webp" 
 spawn-at-startup "waybar"
 
 //
+// Spawn at startup - GUI programs on specific workspaces
+//
+
+//
+// Right
+//
+
+window-rule {
+	match app-id="kitty" at-startup=true
+	open-on-output "DP-2"
+	open-on-workspace "1 -Terminal"
+	open-maximized true
+}
+spawn-at-startup "kitty"
+
+window-rule {
+	match title="Bolt Launcher" at-startup=true
+	open-on-output "DP-2"
+	open-on-workspace "2 - Gaming"
+	open-maximized true
+}
+spawn-at-startup "bolt"
+
+
+//
+// Left
+//
+
+window-rule {
+	match app-id="brave-browser" at-startup=true
+	open-on-output "DP-1"
+	open-on-workspace "1 - Browser"
+	open-maximized true
+}
+spawn-at-startup "brave"
+
+window-rule {
+	match app-id="discord" at-startup=true
+	open-on-output "DP-1"
+	open-on-workspace "2 - Discord"
+	open-maximized true
+}
+spawn-at-startup "discord"
+
+window-rule {
+	match app-id="tidal-hifi" at-startup=true
+	open-on-output "DP-1"
+	open-on-workspace "3 - Music"
+	open-maximized true
+}
+spawn-at-startup "tidal-hifi"
+
+window-rule {
+	match app-id="obsidian" at-startup=true
+	open-on-output "DP-1"
+	open-on-workspace "4 - Notes"
+	open-maximized true
+}
+spawn-at-startup "obsidian"
+
+//
 // ** spawn-at-startup section end ** //
 //
 
@@ -293,7 +407,7 @@ spawn-at-startup "waybar"
 // Additionally, clients will be informed that they are tiled, removing some client-side rounded corners.
 // This option will also fix border/focus ring drawing behind some semitransparent windows.
 // After enabling or disabling this, you need to restart the apps for this to take effect.
-// prefer-no-csd
+prefer-no-csd
 
 // You can change the path where screenshots are saved.
 // A ~ at the front will be expanded to the home directory.
@@ -318,6 +432,18 @@ animations {
 // Window rules let you adjust behavior for individual windows.
 // Find more information on the wiki:
 // https://github.com/YaLTeR/niri/wiki/Configuration:-Window-Rules
+
+// Set open-maximized to true for all windows.
+window-rule {
+  open-maximized true
+}
+
+// Set opacity on inactive floating windows
+window-rule {
+	match app-id="net-runelite-client-RuneLite" is-floating=true
+	opacity 0.7
+	draw-border-with-background false
+}
 
 // Work around WezTerm's initial configure bug
 // by setting an empty default-column-width.
@@ -357,6 +483,18 @@ window-rule {
     clip-to-geometry true
 }
 
+gestures {
+  // Disable hot corners
+  hot-corners {
+    off
+  }
+}
+
+cursor {
+  xcursor-theme "Qogir"
+  xcursor-size 32
+}
+
 binds {
     // Keys consist of modifiers separated by + signs, followed by an XKB key name
     // in the end. To find an XKB name for a particular key, you may use a program
@@ -387,6 +525,8 @@ binds {
     XF86AudioLowerVolume allow-when-locked=true { spawn "wpctl" "set-volume" "@DEFAULT_AUDIO_SINK@" "0.1-"; }
     XF86AudioMute        allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SINK@" "toggle"; }
     XF86AudioMicMute     allow-when-locked=true { spawn "wpctl" "set-mute" "@DEFAULT_AUDIO_SOURCE@" "toggle"; }
+
+    Mod+O repeat=false { toggle-overview; }
 
     Mod+Q { close-window; }
 
@@ -504,10 +644,10 @@ binds {
     //
     // For example, with 2 workspaces + 1 empty, indices 3, 4, 5 and so on
     // will all refer to the 3rd workspace.
-    Mod+1 { focus-workspace 1; }
-    Mod+2 { focus-workspace 2; }
-    Mod+3 { focus-workspace 3; }
-    Mod+4 { focus-workspace 4; }
+    // Mod+1 { focus-workspace 1; }
+    // Mod+2 { focus-workspace 2; }
+    // Mod+3 { focus-workspace 3; }
+    // Mod+4 { focus-workspace 4; }
     Mod+5 { focus-workspace 5; }
     Mod+6 { focus-workspace 6; }
     Mod+7 { focus-workspace 7; }
@@ -548,7 +688,7 @@ binds {
 
     // Expand the focused column to space not taken up by other fully visible columns.
     // Makes the column "fill the rest of the space".
-    Mod+Ctrl+F { expand-column-to-available-width; }
+    // Mod+Ctrl+F { expand-column-to-available-width; }
 
     Mod+C { center-column; }
 
@@ -605,4 +745,27 @@ binds {
     // Powers off the monitors. To turn them back on, do any input like
     // moving the mouse or pressing any other key.
     Mod+Shift+P { power-off-monitors; }
+
+    // Media Keys
+    XF86AudioMedia allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPlay allow-when-locked=true { spawn "playerctl" "play-pause"; }
+    XF86AudioPrev allow-when-locked=true { spawn "playerctl" "previous"; }
+    XF86AudioNext allow-when-locked=true { spawn "playerctl" "next"; }
+    XF86Go allow-when-locked=true { spawn "playerctl" "play"; }
+    Cancel allow-when-locked=true { spawn "playerctl" "pause"; }
+    
+    // Screenshot
+    Mod+Shift+Ctrl+S { spawn "zsh" "-c" "source ~/.zshrc; screenshot"; }
+
+    // Jumping to specific workspaces on each monitor
+    // Left
+    Mod+Shift+1 { spawn-sh "niri msg action focus-monitor-left && niri msg action focus-workspace 1"; }
+    Mod+Shift+2 { spawn-sh "niri msg action focus-monitor-left && niri msg action focus-workspace 2"; }
+    Mod+Shift+3 { spawn-sh "niri msg action focus-monitor-left && niri msg action focus-workspace 3"; }
+    Mod+Shift+4 { spawn-sh "niri msg action focus-monitor-left && niri msg action focus-workspace 4"; }
+    // Right
+    Mod+1 { spawn-sh "niri msg action focus-monitor-right && niri msg action focus-workspace 1"; }
+    Mod+2 { spawn-sh "niri msg action focus-monitor-right && niri msg action focus-workspace 2"; }
+    Mod+3 { spawn-sh "niri msg action focus-monitor-right && niri msg action focus-workspace 3"; }
+    Mod+4 { spawn-sh "niri msg action focus-monitor-right && niri msg action focus-workspace 4"; }
 }
