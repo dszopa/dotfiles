@@ -3,7 +3,7 @@
 set -euo pipefail
 
 if [ "$#" -ne 1 ]; then
-  printf 'Error: switch_coding_session.sh requires exactly one base directory argument.\n' >&2
+  printf 'Error: pick_directory_create_and_switch_to_session.sh requires exactly one base directory argument.\n' >&2
   exit 1
 fi
 

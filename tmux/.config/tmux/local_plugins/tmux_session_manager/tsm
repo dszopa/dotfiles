@@ -81,7 +81,7 @@ case "$command_name" in
       usage
       exit 1
     fi
-    ~/.config/tmux/local_plugins/tmux_session_manager/switch_coding_session.sh "$2"
+    ~/.config/tmux/local_plugins/tmux_session_manager/pick_directory_create_and_switch_to_session.sh "$2"
     ;;
   *)
     usage
