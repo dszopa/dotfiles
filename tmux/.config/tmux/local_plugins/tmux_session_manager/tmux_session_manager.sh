@@ -7,28 +7,40 @@
 # binding, switching to, and killing of tmux sessions.
 #
 
-echo_help="echo '\
-ctrl-u: bind to slot 1 - creates session from query if no match\n\
-ctrl-i: bind to slot 2 - creates session from query if no match\n\
-ctrl-o: bind to slot 3 - creates session from query if no match\n\
-ctrl-p: bind to slot 4 - creates session from query if no match\n\
-ctrl-x: kill session\n\
-ctrl-h: help\n\
-'"
+bind_script="$HOME/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh"
 
-fzf_input="tmux list-sessions | sed -E 's/:.*//'"
-choice=$(eval "$fzf_input" |\
-  fzf --reverse\
-      --preview 'tmux capture-pane -pet {}'\
-      --preview-window=down,80%\
-      --print-query\
-      --bind "ctrl-u:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 1 {} {q})+accept"\
-      --bind "ctrl-i:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 2 {} {q})+accept"\
-      --bind "ctrl-o:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 3 {} {q})+accept"\
-      --bind "ctrl-p:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 4 {} {q})+accept"\
-      --bind "ctrl-x:execute(tmux kill-session -t '{}')+reload($fzf_input)"\
-      --bind "ctrl-h:preview($echo_help)"\
-  )
+# Get the slot bind keys and help lines for each configured slot.
+slot_bind_args=()
+help_lines=()
+for slot in $(seq 1 10); do
+  option_name="@tsm_picker_slot_${slot}_key"
+  key="$(tmux show-options -gv "$option_name" 2>/dev/null || true)"
+  if [ -n "$key" ]; then
+    slot_bind_args+=(--bind "${key}:execute(${bind_script} ${slot} {} {q})+accept")
+    help_lines+=("${key}: bind to slot ${slot} - creates session from query if no match")
+  fi
+done
+
+# Create a temporary file to hold the help text for the fzf preview. This file
+# will be automatically deleted when the script exits due to the trap command.
+help_file="$(mktemp)"
+trap 'rm -f "$help_file"' EXIT
+if [ "${#help_lines[@]}" -eq 0 ]; then
+  printf 'No slot bind keys configured.\n' > "$help_file"
+else
+  printf '%s\n' "${help_lines[@]}" > "$help_file"
+fi
+printf 'ctrl-x: kill session\n' >> "$help_file"
+printf 'ctrl-h: help\n' >> "$help_file"
+
+choice=$(tmux list-sessions | sed -E 's/:.*//' | \
+  fzf --reverse \
+      --preview 'tmux capture-pane -pet {}' \
+      --preview-window=down,80% \
+      --print-query \
+      "${slot_bind_args[@]}" \
+      --bind "ctrl-x:execute(tmux kill-session -t '{}')+reload(tmux list-sessions | sed -E 's/:.*//')" \
+      --bind "ctrl-h:preview(cat ${help_file})")
 
 exit_code=$?
 if [[ $exit_code -eq 1 ]]; then # if no match was found
@@ -42,4 +54,3 @@ elif [[ $exit_code -eq 0 ]]; then
 fi
 
 exit 0
-
