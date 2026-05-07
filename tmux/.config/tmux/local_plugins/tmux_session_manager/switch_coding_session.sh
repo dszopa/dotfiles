@@ -2,11 +2,12 @@
 
 set -euo pipefail
 
-base_dir="$(tmux show-options -gv @coding_base_dir 2>/dev/null || true)"
-if [ -z "$base_dir" ]; then
-  printf 'Error: tmux option @coding_base_dir is unset.\n' >&2
+if [ "$#" -ne 1 ]; then
+  printf 'Error: switch_coding_session.sh requires exactly one base directory argument.\n' >&2
   exit 1
 fi
+
+base_dir="$1"
 
 # Expand ~ to $HOME if it exists
 base_dir="${base_dir/#\~/$HOME}"

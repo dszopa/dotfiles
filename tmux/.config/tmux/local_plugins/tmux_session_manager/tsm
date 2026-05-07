@@ -4,26 +4,26 @@ set -euo pipefail
 
 usage() {
   cat <<'EOF' >&2
-Usage: tsm <command>
+Usage: tsm <command> [args]
 
 Commands:
-  slot-1      Switch to session in TMUX_SESSION_SLOT_1
-  slot-2      Switch to session in TMUX_SESSION_SLOT_2
-  slot-3      Switch to session in TMUX_SESSION_SLOT_3
-  slot-4      Switch to session in TMUX_SESSION_SLOT_4
-  slot-5      Switch to session in TMUX_SESSION_SLOT_5
-  slot-6      Switch to session in TMUX_SESSION_SLOT_6
-  slot-7      Switch to session in TMUX_SESSION_SLOT_7
-  slot-8      Switch to session in TMUX_SESSION_SLOT_8
-  slot-9      Switch to session in TMUX_SESSION_SLOT_9
-  slot-10     Switch to session in TMUX_SESSION_SLOT_10
-  open        Open session manager popup
-  coding      Open coding directory picker popup
+  slot-1            Switch to session in TMUX_SESSION_SLOT_1
+  slot-2            Switch to session in TMUX_SESSION_SLOT_2
+  slot-3            Switch to session in TMUX_SESSION_SLOT_3
+  slot-4            Switch to session in TMUX_SESSION_SLOT_4
+  slot-5            Switch to session in TMUX_SESSION_SLOT_5
+  slot-6            Switch to session in TMUX_SESSION_SLOT_6
+  slot-7            Switch to session in TMUX_SESSION_SLOT_7
+  slot-8            Switch to session in TMUX_SESSION_SLOT_8
+  slot-9            Switch to session in TMUX_SESSION_SLOT_9
+  slot-10           Switch to session in TMUX_SESSION_SLOT_10
+  open              Open session manager popup
+  pick-dir <path>   Pick directory and switch/create session (requires path)
 EOF
 }
 
-# If there is not exactly one argument, print usage and exit with error code.
-if [ "$#" -ne 1 ]; then
+# If there are no arguments, print usage and exit with error code.
+if [ "$#" -lt 1 ]; then
   usage
   exit 1
 fi
@@ -75,8 +75,13 @@ case "$command_name" in
   open)
     tmux display-popup -E -w '100%' -h '100%' ~/.config/tmux/local_plugins/tmux_session_manager/tmux_session_manager.sh
     ;;
-  coding)
-    tmux display-popup -E -w '100%' -h '100%' ~/.config/tmux/local_plugins/tmux_session_manager/switch_coding_session.sh
+  pick-dir)
+    if [ "$#" -ne 2 ]; then
+      printf 'Error: pick-dir requires exactly one path argument.\n' >&2
+      usage
+      exit 1
+    fi
+    ~/.config/tmux/local_plugins/tmux_session_manager/switch_coding_session.sh "$2"
     ;;
   *)
     usage
