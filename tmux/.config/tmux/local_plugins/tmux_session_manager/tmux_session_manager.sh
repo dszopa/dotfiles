@@ -8,10 +8,10 @@
 #
 
 echo_help="echo '\
-ctrl-u: bind to u - creates session from query if no match\n\
-ctrl-i: bind to i - creates session from query if no match\n\
-ctrl-o: bind to o - creates session from query if no match\n\
-ctrl-p: bind to p - creates session from query if no match\n\
+ctrl-u: bind to slot 1 - creates session from query if no match\n\
+ctrl-i: bind to slot 2 - creates session from query if no match\n\
+ctrl-o: bind to slot 3 - creates session from query if no match\n\
+ctrl-p: bind to slot 4 - creates session from query if no match\n\
 ctrl-x: kill session\n\
 ctrl-h: help\n\
 '"
@@ -22,10 +22,10 @@ choice=$(eval "$fzf_input" |\
       --preview 'tmux capture-pane -pet {}'\
       --preview-window=down,80%\
       --print-query\
-      --bind "ctrl-u:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh TMUX_SESSION_U {} {q})+accept"\
-      --bind "ctrl-i:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh TMUX_SESSION_I {} {q})+accept"\
-      --bind "ctrl-o:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh TMUX_SESSION_O {} {q})+accept"\
-      --bind "ctrl-p:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh TMUX_SESSION_P {} {q})+accept"\
+      --bind "ctrl-u:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 1 {} {q})+accept"\
+      --bind "ctrl-i:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 2 {} {q})+accept"\
+      --bind "ctrl-o:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 3 {} {q})+accept"\
+      --bind "ctrl-p:execute(~/.config/tmux/local_plugins/tmux_session_manager/bind_session.sh 4 {} {q})+accept"\
       --bind "ctrl-x:execute(tmux kill-session -t '{}')+reload($fzf_input)"\
       --bind "ctrl-h:preview($echo_help)"\
   )
@@ -42,5 +42,4 @@ elif [[ $exit_code -eq 0 ]]; then
 fi
 
 exit 0
-
 

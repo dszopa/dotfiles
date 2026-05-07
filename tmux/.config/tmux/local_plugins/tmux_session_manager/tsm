@@ -7,10 +7,16 @@ usage() {
 Usage: tsm <command>
 
 Commands:
-  session-u   Switch to session in TMUX_SESSION_U
-  session-i   Switch to session in TMUX_SESSION_I
-  session-o   Switch to session in TMUX_SESSION_O
-  session-p   Switch to session in TMUX_SESSION_P
+  slot-1      Switch to session in TMUX_SESSION_SLOT_1
+  slot-2      Switch to session in TMUX_SESSION_SLOT_2
+  slot-3      Switch to session in TMUX_SESSION_SLOT_3
+  slot-4      Switch to session in TMUX_SESSION_SLOT_4
+  slot-5      Switch to session in TMUX_SESSION_SLOT_5
+  slot-6      Switch to session in TMUX_SESSION_SLOT_6
+  slot-7      Switch to session in TMUX_SESSION_SLOT_7
+  slot-8      Switch to session in TMUX_SESSION_SLOT_8
+  slot-9      Switch to session in TMUX_SESSION_SLOT_9
+  slot-10     Switch to session in TMUX_SESSION_SLOT_10
   open        Open session manager popup
   coding      Open coding directory picker popup
 EOF
@@ -24,38 +30,47 @@ fi
 
 command_name="$1"
 
+switch_to_slot() {
+  slot_number="$1"
+  env_name="TMUX_SESSION_SLOT_${slot_number}"
+  session_target="$(tmux show-environment -g "$env_name" 2>/dev/null | sed "s/^${env_name}=//")"
+  if [ -z "$session_target" ] || [ "$session_target" = "unset" ]; then
+    printf 'Error: %s is unset.\n' "$env_name" >&2
+    exit 1
+  fi
+  tmux switch-client -t "$session_target"
+}
+
 case "$command_name" in
-  session-u)
-    session_target="$(tmux show-environment -g TMUX_SESSION_U 2>/dev/null | sed 's/^TMUX_SESSION_U=//')"
-    if [ -z "$session_target" ]; then
-      printf 'Error: TMUX_SESSION_U is unset.\n' >&2
-      exit 1
-    fi
-    tmux switch-client -t "$session_target"
+  slot-1)
+    switch_to_slot 1
     ;;
-  session-i)
-    session_target="$(tmux show-environment -g TMUX_SESSION_I 2>/dev/null | sed 's/^TMUX_SESSION_I=//')"
-    if [ -z "$session_target" ]; then
-      printf 'Error: TMUX_SESSION_I is unset.\n' >&2
-      exit 1
-    fi
-    tmux switch-client -t "$session_target"
+  slot-2)
+    switch_to_slot 2
     ;;
-  session-o)
-    session_target="$(tmux show-environment -g TMUX_SESSION_O 2>/dev/null | sed 's/^TMUX_SESSION_O=//')"
-    if [ -z "$session_target" ]; then
-      printf 'Error: TMUX_SESSION_O is unset.\n' >&2
-      exit 1
-    fi
-    tmux switch-client -t "$session_target"
+  slot-3)
+    switch_to_slot 3
     ;;
-  session-p)
-    session_target="$(tmux show-environment -g TMUX_SESSION_P 2>/dev/null | sed 's/^TMUX_SESSION_P=//')"
-    if [ -z "$session_target" ]; then
-      printf 'Error: TMUX_SESSION_P is unset.\n' >&2
-      exit 1
-    fi
-    tmux switch-client -t "$session_target"
+  slot-4)
+    switch_to_slot 4
+    ;;
+  slot-5)
+    switch_to_slot 5
+    ;;
+  slot-6)
+    switch_to_slot 6
+    ;;
+  slot-7)
+    switch_to_slot 7
+    ;;
+  slot-8)
+    switch_to_slot 8
+    ;;
+  slot-9)
+    switch_to_slot 9
+    ;;
+  slot-10)
+    switch_to_slot 10
     ;;
   open)
     tmux display-popup -E -w '100%' -h '100%' ~/.config/tmux/local_plugins/tmux_session_manager/tmux_session_manager.sh

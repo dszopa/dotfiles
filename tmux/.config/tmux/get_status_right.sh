@@ -8,18 +8,18 @@
 #
 
 CURRENT_SESSION=$(tmux display-message -p "#S")
-eval "$(tmux show-environment -g "TMUX_SESSION_U")"
-eval "$(tmux show-environment -g "TMUX_SESSION_I")"
-eval "$(tmux show-environment -g "TMUX_SESSION_O")"
-eval "$(tmux show-environment -g "TMUX_SESSION_P")"
+eval "$(tmux show-environment -g "TMUX_SESSION_SLOT_1")"
+eval "$(tmux show-environment -g "TMUX_SESSION_SLOT_2")"
+eval "$(tmux show-environment -g "TMUX_SESSION_SLOT_3")"
+eval "$(tmux show-environment -g "TMUX_SESSION_SLOT_4")"
 
 # if DEBUG=true
 if [ "$DEBUG" == "true" ]; then
     echo "Current session: $CURRENT_SESSION"
-    echo "TMUX_SESSION_U: $TMUX_SESSION_U"
-    echo "TMUX_SESSION_I: $TMUX_SESSION_I"
-    echo "TMUX_SESSION_O: $TMUX_SESSION_O"
-    echo "TMUX_SESSION_P: $TMUX_SESSION_P"
+    echo "TMUX_SESSION_SLOT_1: $TMUX_SESSION_SLOT_1"
+    echo "TMUX_SESSION_SLOT_2: $TMUX_SESSION_SLOT_2"
+    echo "TMUX_SESSION_SLOT_3: $TMUX_SESSION_SLOT_3"
+    echo "TMUX_SESSION_SLOT_4: $TMUX_SESSION_SLOT_4"
 fi
 
 match_color="green"
@@ -36,16 +36,16 @@ function get_session_segment() {
   fi
 }
 
-SESSION_U=$(get_session_segment "u" "$TMUX_SESSION_U")
-SESSION_I=$(get_session_segment "i" "$TMUX_SESSION_I")
-SESSION_O=$(get_session_segment "o" "$TMUX_SESSION_O")
-SESSION_P=$(get_session_segment "p" "$TMUX_SESSION_P")
+SESSION_1=$(get_session_segment "u" "$TMUX_SESSION_SLOT_1")
+SESSION_2=$(get_session_segment "i" "$TMUX_SESSION_SLOT_2")
+SESSION_3=$(get_session_segment "o" "$TMUX_SESSION_SLOT_3")
+SESSION_4=$(get_session_segment "p" "$TMUX_SESSION_SLOT_4")
 
 if [ "$DEBUG" == "true" ]; then
-    echo "SESSION_U: $SESSION_U"
-    echo "SESSION_I: $SESSION_I"
-    echo "SESSION_O: $SESSION_O"
-    echo "SESSION_P: $SESSION_P"
+    echo "SESSION_1: $SESSION_1"
+    echo "SESSION_2: $SESSION_2"
+    echo "SESSION_3: $SESSION_3"
+    echo "SESSION_4: $SESSION_4"
 fi
 
-echo "#[align=absolute-centre] $SESSION_U $SESSION_I $SESSION_O $SESSION_P"
+echo "#[align=absolute-centre] $SESSION_1 $SESSION_2 $SESSION_3 $SESSION_4"
