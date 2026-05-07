@@ -13,9 +13,15 @@ base_dir="${base_dir/#\~/$HOME}"
 
 # Use fzf to select a directory in the base_dir. The --reverse flag is used to
 # display the results from the bottom up.
+#
+# Toggle e temporarily to allow for handling the case where the user cancels
+# the fzf prompt.
+set +e
 choice=$(find "$base_dir" -mindepth 1 -maxdepth 1 -type d -printf '%f\n' | sort | fzf --reverse)
+exit_code=$?
+set -e
 
-if [ -z "${choice:-}" ]; then
+if [ "$exit_code" -ne 0 ] || [ -z "${choice:-}" ]; then
   exit 0
 fi
 
