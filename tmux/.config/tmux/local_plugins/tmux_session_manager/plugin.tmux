@@ -22,3 +22,6 @@ tmux bind-key p run-shell 'tmux switch-client -t "${TMUX_SESSION_P}"'
 
 # Launch manager with <prefix>s
 tmux bind-key s display-popup -E -w '100%' -h '100%' ~/.config/tmux/local_plugins/tmux_session_manager/tmux_session_manager.sh
+
+# Launch coding directory picker with <prefix>S
+tmux bind-key S display-popup -E -w '100%' -h '100%' ~/.config/tmux/local_plugins/tmux_session_manager/switch_coding_session.sh
