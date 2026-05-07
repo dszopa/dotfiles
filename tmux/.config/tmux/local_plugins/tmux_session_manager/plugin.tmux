@@ -5,7 +5,7 @@
 #
 
 # Environment variables for tmux session manager
-tmux set-environment -g TMUX_SESSION_U "primary"
-tmux set-environment -g TMUX_SESSION_I "primary"
-tmux set-environment -g TMUX_SESSION_O "primary"
-tmux set-environment -g TMUX_SESSION_P "primary"
+tmux set-environment -g TMUX_SESSION_U "unset"
+tmux set-environment -g TMUX_SESSION_I "unset"
+tmux set-environment -g TMUX_SESSION_O "unset"
+tmux set-environment -g TMUX_SESSION_P "unset"
