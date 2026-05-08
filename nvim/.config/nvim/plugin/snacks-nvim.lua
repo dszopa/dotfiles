@@ -11,6 +11,10 @@ require("snacks").setup({
   indent = { enabled = true },
 })
 
+-- Turn off animate, can't do this through setup
+-- I noticed the animations can cause lag with certain treesitter parsers.
+vim.g.snacks_animate = false
+
 -- General Pickers
 vim.keymap.set("n", "<leader>pp", function()
   Snacks.picker()
