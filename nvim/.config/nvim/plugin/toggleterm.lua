@@ -9,9 +9,8 @@ local toggleterm = Terminal:new({
   float_opts = {
     border = "rounded",
   },
-  on_open = function(term)
+  on_open = function(_)
     vim.cmd("startinsert!")
-    vim.api.nvim_buf_set_keymap(term.bufnr, "n", "q", "<cmd>close<CR>", { noremap = true, silent = true })
   end,
 })
 
@@ -21,6 +20,9 @@ local lazygit = Terminal:new({
   float_opts = {
     border = "rounded",
   },
+  on_open = function(_)
+    vim.cmd("startinsert!")
+  end,
 })
 
 vim.keymap.set({ "n", "t" }, "<leader><c-g>", function()
