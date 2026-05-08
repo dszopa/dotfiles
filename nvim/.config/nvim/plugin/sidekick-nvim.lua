@@ -45,3 +45,15 @@ end, { desc = "Sidekick send file" })
 vim.keymap.set({ "n" }, "<leader>av", function()
   require("sidekick.cli").send({ name = agent, msg = "{selection}" })
 end, { desc = "Sidekick send visual selection" })
+
+-- WARNING - This function uses internals of sidekick & may break with updates.
+vim.keymap.set("n", "<leader>at", function()
+  local sessions = require("sidekick.cli.terminal").sessions()
+  if #sessions == 0 then
+    print("No Sidekick sessions found.")
+    return
+  end
+
+  local terminal = require("sidekick.cli.terminal").get(sessions[1].id)
+  terminal.opts.layout = terminal.opts.layout == "float" and "right" or "float"
+end, { desc = "Sidekick toggle terminal layout" })
