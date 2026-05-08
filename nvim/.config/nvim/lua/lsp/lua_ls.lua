@@ -30,6 +30,8 @@ vim.lsp.config("lua_ls", {
           vim.env.VIMRUNTIME,
           -- For LSP Settings Type Annotations: https://github.com/neovim/nvim-lspconfig#lsp-settings-type-annotations
           vim.api.nvim_get_runtime_file("lua/lspconfig", false)[1],
+          -- For plugin types
+          vim.fn.stdpath('data') .. '/site/pack/core/opt',
           -- Depending on the usage, you might want to add additional paths
           -- here.
           -- '${3rd}/luv/library',
