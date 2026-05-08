@@ -5,10 +5,7 @@ vim.pack.add({
 require("copilot").setup({
   panel = {
     enabled = false,
-  },
-  suggestion = {
-    auto_trigger = true,
-  },
+  }
 })
 
 vim.keymap.set({ "i" }, "<C-a>", function()
