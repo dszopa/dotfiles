@@ -4,7 +4,27 @@ vim.pack.add({
 
 local Terminal = require("toggleterm.terminal").Terminal
 
-local toggleterm = Terminal:new({
+local toggleterm_1 = Terminal:new({
+  direction = "float",
+  float_opts = {
+    border = "rounded",
+  },
+  on_open = function(_)
+    vim.cmd("startinsert!")
+  end,
+})
+
+local toggleterm_2 = Terminal:new({
+  direction = "float",
+  float_opts = {
+    border = "rounded",
+  },
+  on_open = function(_)
+    vim.cmd("startinsert!")
+  end,
+})
+
+local toggleterm_3 = Terminal:new({
   direction = "float",
   float_opts = {
     border = "rounded",
@@ -30,5 +50,13 @@ vim.keymap.set({ "n", "t" }, "<leader><c-g>", function()
 end, { desc = "Toggle lazygit" })
 
 vim.keymap.set({ "n", "t" }, "<leader><c-j>", function()
-  toggleterm:toggle()
-end, { desc = "Toggle terminal" })
+  toggleterm_1:toggle()
+end, { desc = "Toggle terminal 1" })
+
+vim.keymap.set({ "n", "t" }, "<leader><c-k>", function()
+  toggleterm_2:toggle()
+end, { desc = "Toggle terminal 2" })
+
+vim.keymap.set({ "n", "t" }, "<leader><c-l>", function()
+  toggleterm_3:toggle()
+end, { desc = "Toggle terminal 3" })
