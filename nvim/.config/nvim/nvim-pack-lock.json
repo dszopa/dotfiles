@@ -33,10 +33,6 @@
       "rev": "131a558e13f9f28b15cd235557150ccb23f89286",
       "src": "https://github.com/nvim-lualine/lualine.nvim"
     },
-    "markview.nvim": {
-      "rev": "e3829d35674fa0537ed2a3aceffb6f79b412d52b",
-      "src": "https://github.com/OXY2DEV/markview.nvim"
-    },
     "mini.cursorword": {
       "rev": "a7e606208197ca5d1c5288750d5163429b4c74da",
       "src": "https://github.com/nvim-mini/mini.cursorword"
