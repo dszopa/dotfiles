@@ -12,6 +12,7 @@ This config is organized by responsibility:
 - `selene` for linting Lua files.
 - `tree-sitter-cli` for treesitter support. Primarily for highlighting languages that don't have built in support.
 - Various language servers in `lua/lsp/<server>.lua` files. See those files for specifics.
+- `lazygit` for lazygit integration.
 
 ## Load order
 
