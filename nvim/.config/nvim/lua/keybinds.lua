@@ -39,6 +39,12 @@ vim.keymap.set("n", "[q", ":cprev<CR>zz", { desc = "Go to previous quickfix item
 vim.keymap.set("n", "<leader>qo", ":copen<CR>", { desc = "Open quickfix list" })
 vim.keymap.set("n", "<leader>qx", ":cclose<CR>", { desc = "Close quickfix list" })
 
+-- Support moving between windows in terminal mode
+vim.keymap.set("t", "<c-w>h", "<c-\\><c-n><c-w>h", { desc = "Move to left window from terminal mode" })
+vim.keymap.set("t", "<c-w>j", "<c-\\><c-n><c-w>j", { desc = "Move to below window from terminal mode" })
+vim.keymap.set("t", "<c-w>k", "<c-\\><c-n><c-w>k", { desc = "Move to above window from terminal mode" })
+vim.keymap.set("t", "<c-w>l", "<c-\\><c-n><c-w>l", { desc = "Move to right window from terminal mode" })
+
 -- LSP
 -- Also see plugin/snacks-nvim for many LSP config options
 vim.keymap.set("n", "K", function()

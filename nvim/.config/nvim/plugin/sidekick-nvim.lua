@@ -33,6 +33,11 @@ vim.keymap.set({ "n", "t" }, "<leader><c-a>", function()
   require("sidekick.cli").toggle({ name = agent })
 end, { desc = "Sidekick Toggle CLI" })
 
+-- Because my head keeps thinking I should be able to do this
+vim.keymap.set({ "x" }, "<leader><c-a>", function()
+  require("sidekick.cli").send({ name = agent, msg = "{this}" })
+end, { desc = "Sidekick send this (visual)" })
+
 vim.keymap.set({ "x", "n" }, "<leader>at", function()
   require("sidekick.cli").send({ name = agent, msg = "{this}" })
 end, { desc = "Sidekick send this" })
@@ -47,7 +52,7 @@ vim.keymap.set({ "n" }, "<leader>av", function()
 end, { desc = "Sidekick send visual selection" })
 
 -- WARNING - This function uses internals of sidekick & may break with updates.
-vim.keymap.set("n", "<leader>at", function()
+vim.keymap.set({ "n", "t" }, "<leader>at", function()
   local sessions = require("sidekick.cli.terminal").sessions()
   if #sessions == 0 then
     print("No Sidekick sessions found.")
@@ -56,4 +61,6 @@ vim.keymap.set("n", "<leader>at", function()
 
   local terminal = require("sidekick.cli.terminal").get(sessions[1].id)
   terminal.opts.layout = terminal.opts.layout == "float" and "right" or "float"
+  require("sidekick.cli").hide({ name = agent })
+  require("sidekick.cli").focus({ name = agent })
 end, { desc = "Sidekick toggle terminal layout" })
