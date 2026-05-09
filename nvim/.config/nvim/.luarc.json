@@ -1,3 +1,4 @@
+// https://luals.github.io/wiki/settings/
 {
   "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/refs/heads/master/setting/schema.json",
   "runtime": {
