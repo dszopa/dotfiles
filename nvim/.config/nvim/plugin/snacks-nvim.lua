@@ -43,6 +43,12 @@ end, { desc = "Open Snacks Notifications Picker" })
 vim.keymap.set("n", "<leader>pS", function()
   Snacks.picker.spelling()
 end, { desc = "Open Snacks Spelling Picker" })
+vim.keymap.set("n", "<leader>pd", function()
+  Snacks.picker.diagnostics_buffer()
+end, { desc = "Open Snacks Diagnostics Buffer Picker" })
+vim.keymap.set("n", "<leader>pD", function()
+  Snacks.picker.diagnostics()
+end, { desc = "Open Snacks Diagnostics Picker" })
 
 -- LSP Pickers
 -- TODO: DSZOPA - Should this just replace gd?
