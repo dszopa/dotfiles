@@ -1,0 +1,57 @@
+{
+  "$schema": "https://raw.githubusercontent.com/LuaLS/vscode-lua/refs/heads/master/setting/schema.json",
+  "runtime": {
+    "version": "LuaJIT",
+    "path": [
+      "lua/?.lua",
+      "lua/?/init.lua",
+    ],
+  },
+  "workspace": {
+    "checkThirdParty": false,
+    // Ideally I find some way to configure these better.
+    // Not a fan of the fact that the paths are hard-coded.
+    "library": [
+      // "$VIMRUNTIME",
+      "/usr/share/nvim/runtime/",
+      // vim.api.nvim_get_runtime_file("lua/lspconfig", false)[1],
+      "/home/dszopa/.local/share/nvim/site/pack/core/opt/nvim-lspconfig/lua/lspconfig",
+      // vim.fn.stdpath("data") .. "/site/pack/core/opt",
+      "/home/dszopa/.local/share/nvim/site/pack/core/opt"
+    ],
+  },
+
+  "diagnostics": {
+    "unusedLocalExclude": [ "_*" ],
+    "groupSeverity": {
+      "ambiguity": "Error",
+      "await": "Error",
+      "codestyle": "Error",
+      "conventions": "Error",
+      "duplicate": "Error",
+      "global": "Error",
+      "luadoc": "Error",
+      "redefined": "Error",
+      "strict": "Error",
+      "strong": "Error",
+      "type-check": "Error",
+      "unbalanced": "Error",
+      "unused": "Error"
+    },
+    "groupFileStatus": {
+      "ambiguity": "Any",
+      "await": "Any",
+      "codestyle": "Fallback",
+      "conventions": "Any",
+      "duplicate": "Any",
+      "global": "Any",
+      "luadoc": "Any",
+      "redefined": "Any",
+      "strict": "Any",
+      "strong": "Any",
+      "type-check": "Any",
+      "unbalanced": "Any",
+      "unused": "Any"
+    }
+  },
+}

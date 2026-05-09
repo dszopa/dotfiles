@@ -1,7 +1,0 @@
-std="vim"
-
-[lints]
-mixed_table="allow"
-# My config is small enough that I think some small globals are reasonable.
-# Globals must be defined in `vim.yml`.
-global_usage="allow"

@@ -3,4 +3,4 @@ vim.pack.add({
   Repo.gh("nvim-lualine/lualine.nvim"),
 })
 
-require("lualine").setup()
+require("lualine").setup({})

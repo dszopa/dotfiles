@@ -11,10 +11,10 @@ fi
 
 cd "$target_dir"
 
-echo "pre-commit: running selene ."
-selene .
-
 echo "pre-commit: running stylua --check ."
 stylua --check .
+
+echo "pre-commit: running lua-language-server --check ."
+lua-language-server --check .
 
 echo "pre-commit: checks passed"

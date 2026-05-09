@@ -25,9 +25,11 @@ require("neo-tree").setup({
     type = {
       enabled = false,
     },
+    ---@diagnostic disable-next-line: missing-fields
     last_modified = {
       enabled = false,
     },
+    ---@diagnostic disable-next-line: missing-fields
     created = {
       enabled = false,
     },

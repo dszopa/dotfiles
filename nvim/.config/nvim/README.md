@@ -9,7 +9,7 @@ This config is organized by responsibility:
 ## External Dependencies
 
 - `stylua` for formatting Lua files.
-- `selene` for linting Lua files.
+- `lua-language-server` for linting Lua files & LSP config.
 - `tree-sitter-cli` for treesitter support. Primarily for highlighting languages that don't have built in support.
 - Various language servers in `lua/lsp/<server>.lua` files. See those files for specifics.
 - `lazygit` for lazygit integration.

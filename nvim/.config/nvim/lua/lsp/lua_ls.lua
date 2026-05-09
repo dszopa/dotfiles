@@ -2,8 +2,14 @@
 vim.lsp.config("lua_ls", {
   on_init = function(client)
     if client.workspace_folders then
+      ---@diagnostic disable-next-line: no-unknown
       local path = client.workspace_folders[1].name
       if
+        -- If running outside of the Nvim config folder and there's a
+        -- .luarc.json present in the root of the project, then defer to that
+        -- config file. Otherwise combine the settings below with those
+        -- defined in the client. In practice this is .luarc.json +
+        -- the below config.
         path ~= vim.fn.stdpath("config")
         and (vim.uv.fs_stat(path .. "/.luarc.json") or vim.uv.fs_stat(path .. "/.luarc.jsonc"))
       then
@@ -11,6 +17,7 @@ vim.lsp.config("lua_ls", {
       end
     end
 
+    ---@diagnostic disable-next-line: no-unknown
     client.config.settings.Lua = vim.tbl_deep_extend("force", client.config.settings.Lua, {
       runtime = {
         -- Tell the language server which version of Lua you're using (most
