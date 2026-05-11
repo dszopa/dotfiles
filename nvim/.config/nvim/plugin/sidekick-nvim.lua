@@ -52,7 +52,7 @@ vim.keymap.set({ "n" }, "<leader>av", function()
 end, { desc = "Sidekick send visual selection" })
 
 -- WARNING - This function uses internals of sidekick & may break with updates.
-vim.keymap.set({ "n", "t" }, "<leader>at", function()
+vim.keymap.set({ "n", "t" }, "<leader><a-a>t", function()
   local sessions = require("sidekick.cli.terminal").sessions()
   if #sessions == 0 then
     print("No Sidekick sessions found.")
