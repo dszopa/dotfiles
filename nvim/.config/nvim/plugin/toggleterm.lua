@@ -5,6 +5,7 @@ vim.pack.add({
 local Terminal = require("toggleterm.terminal").Terminal
 
 local toggleterm_1 = Terminal:new({
+  display_name = "j",
   direction = "float",
   float_opts = {
     border = "rounded",
@@ -15,6 +16,7 @@ local toggleterm_1 = Terminal:new({
 })
 
 local toggleterm_2 = Terminal:new({
+  display_name = "k",
   direction = "float",
   float_opts = {
     border = "rounded",
@@ -25,6 +27,7 @@ local toggleterm_2 = Terminal:new({
 })
 
 local toggleterm_3 = Terminal:new({
+  display_name = "l",
   direction = "float",
   float_opts = {
     border = "rounded",
