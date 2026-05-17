@@ -18,3 +18,15 @@ See the following documentation for more information:
 - `:h lsp-core`
 - `:h lsp-quickstart`
 - `neovim/nvim-lspconfig`
+
+## Configured LSPs
+
+| LSP Name          | Program to Install        | Install Method                      |
+| ----------------- | ------------------------- | ----------------------------------- |
+| copilot           | copilot-language-server   | NPM                                 |
+| dartls            | dart                      | Package manager                     |
+| eslint            | eslint                    | NPM (Per project)                   |
+| lua_ls            | lua-language-server       | Package manager                     |
+| rust_analyzer     | rustup                    | Package manager / default installer |
+| tsgo (typescript) | typescript-go             | NPM / TS 7                          |
+| systemd_lsp       | systemd-lsp               | Package manager / Cargo             |
