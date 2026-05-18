@@ -97,3 +97,7 @@ vim.opt.autoread = true
 -- 2. Do not insert text until a selection is made
 -- 3. Show the completion menu as a popup
 vim.opt.completeopt = { "menuone", "popup", "noinsert" }
+
+-- Enable the new (experimental) UI features in Neovim, such as improved
+-- floating windows and popups.
+require("vim._core.ui2").enable({})
